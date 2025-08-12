@@ -1,0 +1,155 @@
+/* Game container styles */
+.game-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.game-box {
+    background: #2c2c2c;
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 400px;
+}
+
+.game-history {
+    background: #2c2c2c;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.bet-options {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.bet-options input,
+.bet-options select {
+    padding: 10px;
+    background: #333;
+    border: 1px solid #404040;
+    color: #fff;
+    border-radius: 5px;
+    flex: 1;
+}
+
+.bet-options button {
+    padding: 10px 20px;
+    background: #ffd700;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    flex: 1;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.result.win {
+    background: #28a745;
+}
+
+.result.lose {
+    background: #dc3545;
+}
+
+/* Dice game styles */
+.dice-game {
+    text-align: center;
+}
+
+#dice {
+    font-size: 120px;
+    margin: 30px 0;
+    animation: roll 0.5s ease;
+}
+
+@keyframes roll {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Coinflip game styles */
+.coin {
+    width: 150px;
+    height: 150px;
+    margin: 30px auto;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.coin.flip {
+    animation: flip 3s forwards;
+}
+
+.coin .heads,
+.coin .tails {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    backface-visibility: hidden;
+}
+
+.coin .heads {
+    background: #ffd700;
+}
+
+.coin .tails {
+    background: #c7a600;
+    transform: rotateY(180deg);
+}
+
+@keyframes flip {
+    0% { transform: rotateY(0); }
+    100% { transform: rotateY(1800deg); }
+}
+
+/* Crash game styles */
+#gameCanvas {
+    width: 100%;
+    height: 300px;
+    background: #333;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.multiplier {
+    font-size: 48px;
+    text-align: center;
+    color: #ffd700;
+    margin: 20px 0;
+}
+
+#cashoutBtn:disabled {
+    background: #666;
+    cursor: not-allowed;
+}
+
+/* History styles */
+#rollHistory,
+#flipHistory,
+#crashHistory {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: 10px;
+    border-bottom: 1px solid #404040;
+    display: flex;
+    justify-content: space-between;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
