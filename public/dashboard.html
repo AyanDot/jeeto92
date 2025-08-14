@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeeto92 - Premium Gaming Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533a7d 100%);
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 215, 0, 0.8);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 0.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 1.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 2.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+        }
+
+        /* Navigation with casino style - INTEGRATED WITH YOUR EXISTING */
+        .main-nav {
+            background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(26,26,46,0.95));
+            backdrop-filter: blur(20px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(90deg, #FFD700, #FF6B35, #FFD700) 1;
+            box-shadow: 0 4px 30px rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: navShine 3s ease-in-out infinite;
+        }
+
+        @keyframes navShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: logoSpin 4s linear infinite;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+        }
+
+        .logo-icon::before {
+            content: '💎';
+            font-size: 25px;
+            animation: logoSpin 4s linear infinite reverse;
+        }
+
+        @keyframes logoSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #FFD700, #FF6B35, #FFD700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            letter-spacing: 3px;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .balance {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+            animation: balancePulse 2s ease-in-out infinite;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes balancePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Navigation links - INTEGRATED */
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .nav-links a, .nav-links button {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover, .nav-links button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+            border-color: #FFD700;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+        }
+
+        /* Hero banner */
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.9), rgba(255, 215, 0, 0.9));
+            margin: 20px;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(255, 107, 53, 0.4);
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: heroShine 3s ease-in-out infinite;
+        }
+
+        @keyframes heroShine {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            z-index: 1;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            z-index: 1;
+            position: relative;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+            z-index: 1;
+            position: relative;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(231, 76, 60, 0.6);
+        }
+
+        /* Promotions section */
+        .promotions {
+            margin: 30px 20px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #FFD700, #FF6B35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #FFD700, #FF6B35);
+            border-radius: 2px;
+        }
+
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .promo-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+        }
+
+        .promo-card:hover {
+            transform: translateY(-10px);
+            border-color: #FFD700;
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .promo-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .promo-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+
+        .promo-description {
+            color: #bdc3c7;
+            margin-bottom: 15px;
+        }
+
+        .promo-button {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #1a1a1a;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .promo-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Games section - INTEGRATED WITH YOUR EXISTING STRUCTURE */
+        .games-section {
+            margin: 40px 20px;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            border-radius: 20px;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(20px);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .game-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: #FFD700;
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.4);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #FF6B35, #FFD700);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            overflow: hidden;
+        }
+
+        .game-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: imageShine 2s ease-in-out infinite;
+        }
+
+        @keyframes imageShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .game-info {
+            padding: 20px;
+        }
+
+        .game-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+
+        .game-description {
+            color: #bdc3c7;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.8rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-weight: 700;
+            color: #2ecc71;
+        }
+
+        /* INTEGRATED PLAY BUTTON - USES YOUR EXISTING CLASS */
+        .play-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .play-btn:hover {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+            color: white;
+        }
+
+        /* Hot/New badges */
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        .badge.hot {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            animation: hotPulse 1.5s ease-in-out infinite;
+        }
+
+        .badge.new {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            animation: newBlink 2s ease-in-out infinite;
+        }
+
+        @keyframes hotPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes newBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Winner ticker */
+        .winner-ticker {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.2), rgba(46, 204, 113, 0.1));
+            border: 2px solid rgba(46, 204, 113, 0.3);
+            border-radius: 15px;
+            margin: 20px;
+            padding: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll 20s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .winner-item {
+            margin-right: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .winner-avatar {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .main-nav {
+                padding: 10px 15px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .hero-banner {
+                margin: 15px;
+                padding: 25px;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .nav-links a, .nav-links button {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <nav class="main-nav">
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <div class="logo-text">Jeeto92</div>
+        </div>
+        <div class="balance">Balance: Rs.<span id="userBalance">0.00</span></div>
+        <div class="nav-links">
+            <a href="/profile.html">Profile</a>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="hero-banner">
+        <h1 class="hero-title">🎰 WIN BIG TODAY! 🎰</h1>
+        <p class="hero-subtitle">Join thousands of winners and claim your Rs.5,000 welcome bonus!</p>
+        <button class="cta-button">Claim Bonus Now! 🚀</button>
+    </div>
+
+    <div class="winner-ticker">
+        <div class="ticker-content">
+            <div class="winner-item">
+                <div class="winner-avatar">🎉</div>
+                <span><strong>Ahmed92</strong> just won Rs.45,000 on Aviator!</span>
+            </div>
+            <div class="winner-item">
+                <div class="winner-avatar">💎</div>
+                <span><strong>Fatima_M</strong> hit the jackpot Rs.75,000 on Lucky Dice!</span>
+            </div>
+            <div class="winner-item">
+                <div class="winner-avatar">🔥</div>
+                <span><strong>Hassan_K</strong> won Rs.32,500 on Coin Master!</span>
+            </div>
+            <div class="winner-item">
+                <div class="winner-avatar">⭐</div>
+                <span><strong>Zara_Ali</strong> scored Rs.28,000 on Crash!</span>
+            </div>
+            <div class="winner-item">
+                <div class="winner-avatar">🏆</div>
+                <span><strong>Muhammad_S</strong> earned Rs.67,000 on Aviator!</span>
+            </div>
+            <div class="winner-item">
+                <div class="winner-avatar">💰</div>
+                <span><strong>Aisha92</strong> won Rs.41,500 on Dice!</span>
+            </div>
+            <div class="winner-item">
+                <div class="winner-avatar">🎯</div>
+                <span><strong>Omar_H</strong> hit Rs.89,000 jackpot!</span>
+            </div>
+            <div class="winner-item">
+                <div class="winner-avatar">✨</div>
+                <span><strong>Khadija_R</strong> won Rs.23,750 on Coinflip!</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="promotions">
+        <h2 class="section-title">🎁 EXCLUSIVE PROMOTIONS 🎁</h2>
+        <div class="promo-grid">
+            <div class="promo-card">
+                <div class="promo-icon">🎰</div>
+                <div class="promo-title">Welcome Bonus</div>
+                <div class="promo-description">Get 100% bonus up to Rs.5,000 on your first deposit!</div>
+                <button class="promo-button">Claim Now</button>
+            </div>
+            <div class="promo-card">
+                <div class="promo-icon">🔥</div>
+                <div class="promo-title">Daily Cashback</div>
+                <div class="promo-description">Get 10% cashback on all losses every day!</div>
+                <button class="promo-button">Activate</button>
+            </div>
+            <div class="promo-card">
+                <div class="promo-icon">💎</div>
+                <div class="promo-title">VIP Program</div>
+                <div class="promo-description">Unlock exclusive benefits and higher limits!</div>
+                <button class="promo-button">Join VIP</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="games-section">
+        <h2 class="section-title">🎮 FEATURED GAMES 🎮</h2>
+        <div class="games-grid">
+            <div class="game-card">
+                <div class="badge hot">🔥 HOT</div>
+                <div class="game-image">✈️</div>
+                <div class="game-info">
+                    <h3>Aviator</h3>
+                    <div class="game-description">Watch the plane soar and cash out before it crashes!</div>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-value">97.3%</span>
+                            <span>RTP</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">1,247</span>
+                            <span>Playing</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">Rs.2.5L</span>
+                            <span>Jackpot</span>
+                        </div>
+                    </div>
+                    <a href="/games/aviator.html" class="play-btn">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="badge new">⭐ NEW</div>
+                <div class="game-image">🎲</div>
+                <div class="game-info">
+                    <h3>Dice</h3>
+                    <div class="game-description">Roll the dice and predict high or low to win big!</div>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-value">96.8%</span>
+                            <span>RTP</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">892</span>
+                            <span>Playing</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">Rs.1.8L</span>
+                            <span>Jackpot</span>
+                        </div>
+                    </div>
+                    <a href="/games/dice.html" class="play-btn">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="game-image">🪙</div>
+                <div class="game-info">
+                    <h3>Coinflip</h3>
+                    <div class="game-description">Flip coins and double your money instantly!</div>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-value">98.1%</span>
+                            <span>RTP</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">654</span>
+                            <span>Playing</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">Rs.95K</span>
+                            <span>Jackpot</span>
+                        </div>
+                    </div>
+                    <a href="/games/coinflip.html" class="play-btn">Play Now</a>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <div class="badge hot">💥 HOT</div>
+                <div class="game-image">📈</div>
+                <div class="game-info">
+                    <h3>Crash</h3>
+                    <div class="game-description">Watch the multiplier grow and cash out before it crashes!</div>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-value">97.9%</span>
+                            <span>RTP</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">1,032</span>
+                            <span>Playing</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">Rs.3.2L</span>
+                            <span>Jackpot</span>
+                        </div>
+                    </div>
+                    <a href="/games/crash.html" class="play-btn">Play Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- YOUR EXISTING JAVASCRIPT INTEGRATION -->
+    <script src="/js/api.js"></script>
+    <script src="/js/games.js"></script>
+    <script>
+        // Enhanced version of your existing script with exciting effects
+        
+        // Your existing logout functionality
+        document.querySelectorAll('#logoutBtn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('role');
+                window.location.href = '/index.html';
+            });
+        });
+
+        // Your existing balance update
+        if (document.getElementById('userBalance')) {
+            API.updateBalance();
+        }
+
+        // Enhanced interactive effects
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px) scale(1.02) rotateY(5deg)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1) rotateY(0deg)';
+            });
+        });
+
+        // Add click effects with your existing functionality
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                let ripple = document.createElement('span');
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.6);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    left: ${e.clientX - this.offsetLeft}px;
+                    top: ${e.clientY - this.offsetTop}px;
+                    width: 20px;
+                    height: 20px;
+                    pointer-events: none;
+                `;
+                this.style.position = 'relative';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
