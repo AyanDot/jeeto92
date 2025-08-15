@@ -1,0 +1,1318 @@
+/* Game container styles */
+.game-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.game-box {
+    background: #2c2c2c;
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 400px;
+}
+
+.game-history {
+    background: #2c2c2c;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.bet-options {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.bet-options input,
+.bet-options select {
+    padding: 10px;
+    background: #333;
+    border: 1px solid #404040;
+    color: #fff;
+    border-radius: 5px;
+    flex: 1;
+}
+
+.bet-options button {
+    padding: 10px 20px;
+    background: #ffd700;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    flex: 1;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.result.win {
+    background: #28a745;
+}
+
+.result.lose {
+    background: #dc3545;
+}
+
+/* Dice game styles */
+.dice-game {
+    text-align: center;
+}
+
+#dice {
+    font-size: 120px;
+    margin: 30px 0;
+    animation: roll 0.5s ease;
+}
+
+@keyframes roll {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Coinflip game styles */
+.coin {
+    width: 150px;
+    height: 150px;
+    margin: 30px auto;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.coin.flip {
+    animation: flip 3s forwards;
+}
+
+.coin .heads,
+.coin .tails {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    backface-visibility: hidden;
+}
+
+.coin .heads {
+    background: #ffd700;
+}
+
+.coin .tails {
+    background: #c7a600;
+    transform: rotateY(180deg);
+}
+
+@keyframes flip {
+    0% { transform: rotateY(0); }
+    100% { transform: rotateY(1800deg); }
+}
+
+/* Crash game styles */
+#gameCanvas {
+    width: 100%;
+    height: 300px;
+    background: #333;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.multiplier {
+    font-size: 48px;
+    text-align: center;
+    color: #ffd700;
+    margin: 20px 0;
+}
+
+#cashoutBtn:disabled {
+    background: #666;
+    cursor: not-allowed;
+}
+
+/* History styles */
+#rollHistory,
+#flipHistory,
+#crashHistory {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: 10px;
+    border-bottom: 1px solid #404040;
+    display: flex;
+    justify-content: space-between;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+/* Color Trading game styles */
+.color-trading-game .game-info {
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    color: white;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.how-to-play {
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: #FFD700;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.4s ease;
+}
+
+.how-to-play:hover {
+    background: rgba(255, 215, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+}
+
+.timer-section {
+    text-align: center;
+}
+
+.timer-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 8px;
+    color: #FFD700;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.timer {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #FFD700;
+    text-shadow: 0 2px 8px rgba(255, 215, 0, 0.5);
+}
+
+.game-id {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-top: 8px;
+    color: #bdc3c7;
+    letter-spacing: 0.5px;
+}
+
+.countdown {
+    color: #e74c3c;
+    font-weight: 800;
+    animation: countdownPulse 1s ease-in-out infinite;
+}
+
+@keyframes countdownPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.color-options {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.color-btn {
+    flex: 1;
+    padding: 20px;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.color-btn.green { 
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 50%, #58d68d 100%);
+}
+
+.color-btn.violet { 
+    background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 50%, #bb8fce 100%);
+}
+
+.color-btn.red { 
+    background: linear-gradient(135deg, #e74c3c 0%, #ec7063 50%, #f1948a 100%);
+}
+
+.color-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+}
+
+.color-btn.selected {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+    animation: selectedPulse 2s ease-in-out infinite;
+}
+
+@keyframes selectedPulse {
+    0%, 100% { box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+    50% { box-shadow: 0 20px 48px rgba(0,0,0,0.4); }
+}
+
+.number-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+    padding: 0 8px;
+}
+
+.number-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid;
+    background: rgba(255, 255, 255, 0.95);
+    font-size: 1.5rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.number-btn.green-number {
+    border-color: #27ae60;
+    color: #27ae60;
+}
+
+.number-btn.red-number {
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.number-btn.violet-number {
+    border-color: #8e44ad;
+    color: #8e44ad;
+}
+
+.number-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.number-btn.selected {
+    color: white;
+    transform: scale(1.2);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+    animation: numberPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes numberPulse {
+    0%, 100% { transform: scale(1.2); }
+    50% { transform: scale(1.25); }
+}
+
+.number-btn.selected.green-number {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    border-color: #2ecc71;
+}
+
+.number-btn.selected.red-number {
+    background: linear-gradient(135deg, #e74c3c, #ec7063);
+    border-color: #ec7063;
+}
+
+.number-btn.selected.violet-number {
+    background: linear-gradient(135deg, #8e44ad, #9b59b6);
+    border-color: #9b59b6;
+}
+
+.multiplier-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.random-btn {
+    background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.random-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.multiplier-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(149, 165, 166, 0.3);
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #2c3e50;
+    font-weight: 600;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.multiplier-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    border-color: #FFD700;
+}
+
+.multiplier-btn.selected {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: white;
+    border-color: #FFD700;
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    animation: multiplierGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes multiplierGlow {
+    0% { box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4); }
+    100% { box-shadow: 0 12px 28px rgba(255, 215, 0, 0.6); }
+}
+
+.bet-size-toggle {
+    display: flex;
+    background: rgba(52, 73, 94, 0.1);
+    border-radius: 50px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.bet-toggle {
+    flex: 1;
+    padding: 18px;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bet-toggle.big {
+    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+    color: white;
+}
+
+.bet-toggle.small {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+}
+
+.bet-toggle.active {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+#colorHistory {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* General Mobile Responsiveness for All Games */
+@media (max-width: 768px) {
+    .game-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .game-box {
+        padding: 15px;
+        border-radius: 10px;
+    }
+    
+    .game-history {
+        padding: 15px;
+        border-radius: 10px;
+    }
+    
+    .bet-options {
+        gap: 8px;
+        margin: 15px 0;
+    }
+    
+    .bet-options input,
+    .bet-options select,
+    .bet-options button {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+    
+    .result {
+        margin-top: 15px;
+        padding: 12px;
+        font-size: 16px;
+    }
+    
+    /* Dice game mobile */
+    #dice {
+        font-size: 80px;
+        margin: 20px 0;
+    }
+    
+    /* Coinflip game mobile */
+    .coin {
+        width: 100px;
+        height: 100px;
+        margin: 20px auto;
+    }
+    
+    /* Crash game mobile */
+    #gameCanvas {
+        height: 200px;
+        margin-bottom: 15px;
+    }
+    
+    .multiplier {
+        font-size: 32px;
+        margin: 15px 0;
+    }
+    
+    /* Color Trading specific mobile */
+    .multiplier-section {
+        justify-content: center;
+    }
+    
+    .multiplier-btn {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+    
+    .number-btn {
+        width: 55px;
+        height: 55px;
+        font-size: 1.3rem;
+    }
+    
+    .color-btn {
+        font-size: 1.1rem;
+        padding: 18px;
+    }
+    
+    /* History responsive */
+    .history-item {
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+    
+    #rollHistory,
+    #flipHistory,
+    #crashHistory,
+    #colorHistory,
+    #aviatorHistory {
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-box {
+        padding: 10px;
+        border-radius: 8px;
+    }
+    
+    .game-history {
+        padding: 10px;
+        border-radius: 8px;
+    }
+    
+    .bet-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .bet-options input,
+    .bet-options select,
+    .bet-options button {
+        padding: 10px;
+        font-size: 1rem;
+        width: 100%;
+    }
+    
+    .result {
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+    
+    /* Dice game small mobile */
+    #dice {
+        font-size: 60px;
+        margin: 15px 0;
+    }
+    
+    /* Coinflip game small mobile */
+    .coin {
+        width: 80px;
+        height: 80px;
+        margin: 15px auto;
+    }
+    
+    /* Crash game small mobile */
+    #gameCanvas {
+        height: 150px;
+        margin-bottom: 10px;
+    }
+    
+    .multiplier {
+        font-size: 24px;
+        margin: 10px 0;
+    }
+    
+    #cashoutBtn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    
+    /* Color Trading small mobile */
+    .color-options {
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .color-btn {
+        font-size: 1rem;
+        padding: 12px;
+    }
+    
+    .number-grid {
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .number-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+    
+    .multiplier-section {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+    }
+    
+    .multiplier-btn {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+    
+    .random-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .bet-size-toggle {
+        margin-bottom: 20px;
+    }
+    
+    .bet-toggle {
+        padding: 12px;
+        font-size: 1rem;
+    }
+    
+    .play-btn {
+        font-size: 1rem;
+        padding: 15px;
+        letter-spacing: 1px;
+    }
+    
+    /* History mobile optimization */
+    .history-item {
+        padding: 10px;
+        font-size: 0.8rem;
+        flex-direction: column;
+        gap: 5px;
+        text-align: left;
+    }
+    
+    .history-item span {
+        display: block;
+    }
+    
+    #rollHistory,
+    #flipHistory,
+    #crashHistory,
+    #colorHistory,
+    #aviatorHistory {
+        max-height: 200px;
+    }
+}
+
+/* Touch-friendly mobile improvements */
+@media (max-width: 768px) and (hover: none) {
+    /* Improve touch targets for mobile */
+    .bet-options button,
+    .play-btn,
+    .color-btn,
+    .number-btn,
+    .multiplier-btn,
+    .action-btn {
+        min-height: 44px;
+        min-width: 44px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Remove hover effects on touch devices */
+    .color-btn:hover,
+    .number-btn:hover,
+    .multiplier-btn:hover {
+        transform: none;
+        box-shadow: inherit;
+    }
+    
+    /* Enhanced active states for touch */
+    .color-btn:active,
+    .number-btn:active,
+    .multiplier-btn:active,
+    .play-btn:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+    }
+}
+
+/* Aviator game specific layout override */
+.aviator-container {
+    display: block;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.aviator-container .game-box {
+    width: 100%;
+    max-width: none;
+    margin-bottom: 20px;
+}
+
+/* Aviator game styles */
+.aviator-game {
+    position: relative;
+}
+
+.flight-area {
+    position: relative;
+    overflow: hidden;
+}
+
+.mountain-layer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
+#mountain1 {
+    z-index: 5;
+    opacity: 0.3;
+}
+
+#mountain2 {
+    z-index: 4;
+    opacity: 0.5;
+}
+
+#mountain3 {
+    z-index: 3;
+    opacity: 0.7;
+}
+
+#mountain4 {
+    z-index: 2;
+    opacity: 0.9;
+}
+
+.ground-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #228B22, #32CD32, #228B22);
+    box-shadow: 0 0 20px rgba(50, 205, 50, 0.6), 0 -2px 10px rgba(50, 205, 50, 0.3);
+}
+
+.runway {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(90deg, 
+        #2c3e50 0%, 
+        #34495e 20%, 
+        #2c3e50 40%, 
+        #34495e 60%, 
+        #2c3e50 80%, 
+        #34495e 100%);
+    background-size: 50px 100%;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+}
+
+.runway::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, 
+        #FFD700 0px, 
+        #FFD700 20px, 
+        transparent 20px, 
+        transparent 40px);
+    transform: translateY(-50%);
+}
+
+.flight-path-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.flight-trail {
+    fill: none;
+    stroke: url(#trailGradient);
+    stroke-width: 6;
+    filter: drop-shadow(0 0 10px #00bfff) drop-shadow(0 0 20px rgba(0,191,255,0.5));
+    opacity: 0.9;
+}
+
+.plane {
+    position: absolute;
+    width: 140px;
+    height: 85px;
+    z-index: 50;
+    transition: all 0.1s ease-out;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 20px rgba(255,255,255,0.1));
+}
+
+.plane img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.exhaust-trail {
+    display: none;
+}
+
+.multiplier-display {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    font-weight: 900;
+    color: #FFD700;
+    text-shadow: 
+        0 0 15px rgba(255, 215, 0, 0.5),
+        0 0 25px rgba(255, 215, 0, 0.2),
+        0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 40;
+    text-align: center;
+    user-select: none;
+    background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: multiplierGlow 2s ease-in-out infinite;
+}
+
+@keyframes multiplierGlow {
+    0%, 100% { 
+        background-position: 0% 50%;
+        filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+    }
+    50% { 
+        background-position: 100% 50%;
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+    }
+}
+
+.multiplier-display.crashed {
+    color: #e74c3c;
+    background: linear-gradient(45deg, #e74c3c, #c0392b, #e74c3c);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 
+        0 0 30px rgba(231, 76, 60, 0.8),
+        0 0 60px rgba(231, 76, 60, 0.4);
+    animation: crashPulse 0.5s ease-in-out;
+}
+
+@keyframes crashPulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    25% { transform: translate(-50%, -50%) scale(1.2); }
+    50% { transform: translate(-50%, -50%) scale(0.9); }
+    75% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.crash-explosion {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(circle, 
+        #ff6b35 0%, 
+        #ff4757 20%, 
+        #c0392b 40%, 
+        #8b0000 60%, 
+        transparent 80%);
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.crash-explosion.active {
+    animation: massiveExplosion 1.2s ease-out forwards;
+}
+
+@keyframes massiveExplosion {
+    0% {
+        opacity: 1;
+        transform: scale(0) rotate(0deg);
+        box-shadow: 0 0 0px transparent;
+    }
+    25% {
+        opacity: 1;
+        transform: scale(0.5) rotate(90deg);
+        box-shadow: 0 0 50px #ff6b35, 0 0 100px #ff4757;
+    }
+    50% {
+        opacity: 0.9;
+        transform: scale(1.5) rotate(180deg);
+        box-shadow: 0 0 80px #ff6b35, 0 0 150px #ff4757, 0 0 200px #c0392b;
+    }
+    75% {
+        opacity: 0.6;
+        transform: scale(2.5) rotate(270deg);
+        box-shadow: 0 0 100px #ff4757, 0 0 200px #c0392b;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(4) rotate(360deg);
+        box-shadow: 0 0 50px transparent;
+    }
+}
+
+.crash-particles {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #ff6b35;
+    border-radius: 50%;
+    z-index: 55;
+    pointer-events: none;
+    opacity: 0;
+    box-shadow: 0 0 10px #ff6b35;
+}
+
+.crash-particles.active {
+    opacity: 1;
+    animation: advancedParticleExplode 1.5s ease-out forwards;
+}
+
+@keyframes advancedParticleExplode {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 10px #ff6b35;
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.5);
+        box-shadow: 0 0 20px #ff6b35, 0 0 30px #ff4757;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.1);
+        box-shadow: 0 0 5px transparent;
+    }
+}
+
+.plane.crashed {
+    animation: realisticPlaneCrash 0.8s ease-out forwards;
+}
+
+@keyframes realisticPlaneCrash {
+    0% {
+        transform: rotate(var(--plane-rotation, 0deg));
+        filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+    }
+    25% {
+        transform: rotate(calc(var(--plane-rotation, 0deg) + 30deg)) scale(1.1);
+        filter: drop-shadow(0 0 20px #ff6b35) drop-shadow(0 0 40px #ff4757);
+    }
+    50% {
+        transform: rotate(calc(var(--plane-rotation, 0deg) + 90deg)) scale(0.9);
+        filter: drop-shadow(0 0 30px #ff4757) drop-shadow(0 0 60px #c0392b);
+    }
+    75% {
+        transform: rotate(calc(var(--plane-rotation, 0deg) + 150deg)) scale(0.7);
+        filter: drop-shadow(0 0 40px #c0392b);
+    }
+    100% {
+        transform: rotate(calc(var(--plane-rotation, 0deg) + 180deg)) scale(0.5);
+        filter: drop-shadow(0 0 20px #8b0000);
+        opacity: 0.3;
+    }
+}
+
+.status-section {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 12px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 2px 10px rgba(255,255,255,0.05);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
+.game-status-bottom {
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.game-status-bottom.waiting {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.3), rgba(52, 152, 219, 0.1));
+    border-color: rgba(52, 152, 219, 0.6);
+    color: #3498db;
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.3);
+}
+
+.game-status-bottom.flying {
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.3), rgba(39, 174, 96, 0.1));
+    border-color: rgba(39, 174, 96, 0.6);
+    color: #2ecc71;
+    box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
+}
+
+.game-status-bottom.crashed {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.3), rgba(231, 76, 60, 0.1));
+    border-color: rgba(231, 76, 60, 0.6);
+    color: #e74c3c;
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.3);
+}
+
+.status-details {
+    color: #bdc3c7;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    text-align: center;
+    font-weight: 500;
+}
+
+.bet-section {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 12px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 2px 10px rgba(255,255,255,0.05);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.bet-input {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+    backdrop-filter: blur(10px);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.bet-input:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), inset 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.quick-bets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.quick-bet {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.3), rgba(52, 152, 219, 0.1));
+    border: 1px solid rgba(52, 152, 219, 0.5);
+    color: #3498db;
+    padding: 8px 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.quick-bet:active {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.5), rgba(52, 152, 219, 0.3));
+    transform: scale(0.95);
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.4);
+}
+
+.action-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.bet-btn {
+    background: linear-gradient(135deg, #2ecc71, #27ae60, #2ecc71);
+    background-size: 200% 200%;
+    color: white;
+    box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+    animation: betBtnGlow 3s ease-in-out infinite;
+}
+
+@keyframes betBtnGlow {
+    0%, 100% { 
+        background-position: 0% 50%;
+        box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+    }
+    50% { 
+        background-position: 100% 50%;
+        box-shadow: 0 8px 35px rgba(46, 204, 113, 0.6);
+    }
+}
+
+.bet-btn:active {
+    transform: scale(0.95);
+}
+
+.bet-btn:disabled {
+    background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+    cursor: not-allowed;
+    box-shadow: none;
+    animation: none;
+}
+
+.cashout-btn {
+    background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+    background-size: 200% 200%;
+    color: #2c3e50;
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+    animation: cashoutIntensePulse 1s ease-in-out infinite;
+}
+
+@keyframes cashoutIntensePulse {
+    0%, 100% { 
+        background-position: 0% 50%;
+        box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
+        transform: scale(1);
+    }
+    50% { 
+        background-position: 100% 50%;
+        box-shadow: 0 8px 35px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.5);
+        transform: scale(1.02);
+    }
+}
+
+.cashout-btn:active {
+    transform: scale(0.95);
+}
+
+#aviatorHistory {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Responsive design for Aviator game */
+@media (max-width: 1200px) {
+    .aviator-container {
+        max-width: 100%;
+        padding: 15px;
+    }
+    
+    .flight-area {
+        height: 350px;
+    }
+    
+    .multiplier-display {
+        font-size: 4rem;
+    }
+    
+    .control-panel {
+        min-height: 180px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .aviator-container {
+        padding: 10px;
+    }
+    
+    .flight-area {
+        height: 300px;
+    }
+    
+    .multiplier-display {
+        font-size: 3rem;
+        top: 30%;
+    }
+    
+    .control-panel {
+        flex-direction: column;
+        min-height: 200px;
+        gap: 12px;
+    }
+    
+    .status-section, .bet-section {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .quick-bets {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+    }
+    
+    .quick-bet {
+        padding: 6px 4px;
+        font-size: 0.7rem;
+    }
+    
+    .plane {
+        width: 100px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .aviator-container {
+        padding: 5px;
+    }
+    
+    .flight-area {
+        height: 250px;
+    }
+    
+    .multiplier-display {
+        font-size: 2.5rem;
+        top: 35%;
+    }
+    
+    .control-panel {
+        min-height: 160px;
+        padding: 8px;
+    }
+    
+    .bet-input {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+    
+    .action-btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .plane {
+        width: 80px;
+        height: 48px;
+    }
+    
+    .game-status-bottom {
+        font-size: 0.8rem;
+        padding: 6px 8px;
+    }
+    
+    .status-details {
+        font-size: 0.7rem;
+    }
+}
