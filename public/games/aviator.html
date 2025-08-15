@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeeto92 - Aviator</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/games.css">
+    <style>
+        .aviator-game {
+            background: #0a0a0a;
+            color: white;
+            border-radius: 10px;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .flight-area {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to bottom, 
+                #2c3e80 0%,
+                #3d5aa0 20%,
+                #4a6bb5 40%,
+                #6b8dd6 60%,
+                #ff7b54 80%,
+                #ff6b35 100%);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .mountain-layer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+        }
+
+        #mountain1 {
+            z-index: 5;
+            opacity: 0.3;
+        }
+
+        #mountain2 {
+            z-index: 4;
+            opacity: 0.5;
+        }
+
+        #mountain3 {
+            z-index: 3;
+            opacity: 0.7;
+        }
+
+        #mountain4 {
+            z-index: 2;
+            opacity: 0.9;
+        }
+
+        .ground-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #228B22, #32CD32, #228B22);
+            box-shadow: 0 0 20px rgba(50, 205, 50, 0.6), 0 -2px 10px rgba(50, 205, 50, 0.3);
+        }
+
+        .runway {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(90deg, 
+                #2c3e50 0%, 
+                #34495e 20%, 
+                #2c3e50 40%, 
+                #34495e 60%, 
+                #2c3e50 80%, 
+                #34495e 100%);
+            background-size: 50px 100%;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+        }
+
+        .runway::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, 
+                #FFD700 0px, 
+                #FFD700 20px, 
+                transparent 20px, 
+                transparent 40px);
+            transform: translateY(-50%);
+        }
+
+        .flight-path-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+
+        .flight-trail {
+            fill: none;
+            stroke: url(#trailGradient);
+            stroke-width: 6;
+            filter: drop-shadow(0 0 10px #00bfff) drop-shadow(0 0 20px rgba(0,191,255,0.5));
+            opacity: 0.9;
+        }
+
+        .plane {
+            position: absolute;
+            width: 140px;
+            height: 85px;
+            z-index: 50;
+            transition: all 0.1s ease-out;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 20px rgba(255,255,255,0.1));
+        }
+
+        .plane img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .exhaust-trail {
+            display: none;
+        }
+
+        .multiplier-display {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            font-weight: 900;
+            color: #FFD700;
+            text-shadow: 
+                0 0 15px rgba(255, 215, 0, 0.5),
+                0 0 25px rgba(255, 215, 0, 0.2),
+                0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 40;
+            text-align: center;
+            user-select: none;
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: multiplierGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes multiplierGlow {
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+            }
+            50% { 
+                background-position: 100% 50%;
+                filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+            }
+        }
+
+        .multiplier-display.crashed {
+            color: #e74c3c;
+            background: linear-gradient(45deg, #e74c3c, #c0392b, #e74c3c);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 
+                0 0 30px rgba(231, 76, 60, 0.8),
+                0 0 60px rgba(231, 76, 60, 0.4);
+            animation: crashPulse 0.5s ease-in-out;
+        }
+
+        @keyframes crashPulse {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            25% { transform: translate(-50%, -50%) scale(1.2); }
+            50% { transform: translate(-50%, -50%) scale(0.9); }
+            75% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .crash-explosion {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                #ff6b35 0%, 
+                #ff4757 20%, 
+                #c0392b 40%, 
+                #8b0000 60%, 
+                transparent 80%);
+            z-index: 60;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .crash-explosion.active {
+            animation: massiveExplosion 1.2s ease-out forwards;
+        }
+
+        @keyframes massiveExplosion {
+            0% {
+                opacity: 1;
+                transform: scale(0) rotate(0deg);
+                box-shadow: 0 0 0px transparent;
+            }
+            25% {
+                opacity: 1;
+                transform: scale(0.5) rotate(90deg);
+                box-shadow: 0 0 50px #ff6b35, 0 0 100px #ff4757;
+            }
+            50% {
+                opacity: 0.9;
+                transform: scale(1.5) rotate(180deg);
+                box-shadow: 0 0 80px #ff6b35, 0 0 150px #ff4757, 0 0 200px #c0392b;
+            }
+            75% {
+                opacity: 0.6;
+                transform: scale(2.5) rotate(270deg);
+                box-shadow: 0 0 100px #ff4757, 0 0 200px #c0392b;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(4) rotate(360deg);
+                box-shadow: 0 0 50px transparent;
+            }
+        }
+
+        .crash-particles {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff6b35;
+            border-radius: 50%;
+            z-index: 55;
+            pointer-events: none;
+            opacity: 0;
+            box-shadow: 0 0 10px #ff6b35;
+        }
+
+        .crash-particles.active {
+            opacity: 1;
+            animation: advancedParticleExplode 1.5s ease-out forwards;
+        }
+
+        @keyframes advancedParticleExplode {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+                box-shadow: 0 0 10px #ff6b35;
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.5);
+                box-shadow: 0 0 20px #ff6b35, 0 0 30px #ff4757;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.1);
+                box-shadow: 0 0 5px transparent;
+            }
+        }
+
+        .plane.crashed {
+            animation: realisticPlaneCrash 0.8s ease-out forwards;
+        }
+
+        @keyframes realisticPlaneCrash {
+            0% {
+                transform: rotate(var(--plane-rotation, 0deg));
+                filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+            }
+            25% {
+                transform: rotate(calc(var(--plane-rotation, 0deg) + 30deg)) scale(1.1);
+                filter: drop-shadow(0 0 20px #ff6b35) drop-shadow(0 0 40px #ff4757);
+            }
+            50% {
+                transform: rotate(calc(var(--plane-rotation, 0deg) + 90deg)) scale(0.9);
+                filter: drop-shadow(0 0 30px #ff4757) drop-shadow(0 0 60px #c0392b);
+            }
+            75% {
+                transform: rotate(calc(var(--plane-rotation, 0deg) + 150deg)) scale(0.7);
+                filter: drop-shadow(0 0 40px #c0392b);
+            }
+            100% {
+                transform: rotate(calc(var(--plane-rotation, 0deg) + 180deg)) scale(0.5);
+                filter: drop-shadow(0 0 20px #8b0000);
+                opacity: 0.3;
+            }
+        }
+
+        .control-panel {
+            background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(40,40,40,0.95));
+            backdrop-filter: blur(20px);
+            padding: 16px;
+            display: flex;
+            gap: 16px;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+            border-radius: 0 0 10px 10px;
+            min-height: 200px;
+        }
+
+        .status-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 12px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 2px 10px rgba(255,255,255,0.05);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        .game-status-bottom {
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-status-bottom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: statusShine 3s ease-in-out infinite;
+        }
+
+        @keyframes statusShine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: -100%; }
+        }
+
+        .game-status-bottom.waiting {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.3), rgba(52, 152, 219, 0.1));
+            border-color: rgba(52, 152, 219, 0.6);
+            color: #3498db;
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.3);
+        }
+
+        .game-status-bottom.flying {
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.3), rgba(39, 174, 96, 0.1));
+            border-color: rgba(39, 174, 96, 0.6);
+            color: #2ecc71;
+            box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .game-status-bottom.crashed {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.3), rgba(231, 76, 60, 0.1));
+            border-color: rgba(231, 76, 60, 0.6);
+            color: #e74c3c;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.3);
+        }
+
+        .status-details {
+            color: #bdc3c7;
+            font-size: 0.75rem;
+            line-height: 1.3;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .bet-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 12px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 2px 10px rgba(255,255,255,0.05);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .bet-input {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 8px;
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .bet-input:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), inset 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .quick-bets {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .quick-bet {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.3), rgba(52, 152, 219, 0.1));
+            border: 1px solid rgba(52, 152, 219, 0.5);
+            color: #3498db;
+            padding: 8px 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quick-bet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .quick-bet:hover::before {
+            left: 100%;
+        }
+
+        .quick-bet:active {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.5), rgba(52, 152, 219, 0.3));
+            transform: scale(0.95);
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .bet-btn {
+            background: linear-gradient(135deg, #2ecc71, #27ae60, #2ecc71);
+            background-size: 200% 200%;
+            color: white;
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+            animation: betBtnGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes betBtnGlow {
+            0%, 100% { 
+                background-position: 0% 50%;
+                box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+            }
+            50% { 
+                background-position: 100% 50%;
+                box-shadow: 0 8px 35px rgba(46, 204, 113, 0.6);
+            }
+        }
+
+        .bet-btn:active {
+            transform: scale(0.95);
+        }
+
+        .bet-btn:disabled {
+            background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+            cursor: not-allowed;
+            box-shadow: none;
+            animation: none;
+        }
+
+        .cashout-btn {
+            background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+            background-size: 200% 200%;
+            color: #2c3e50;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+            animation: cashoutIntensePulse 1s ease-in-out infinite;
+        }
+
+        @keyframes cashoutIntensePulse {
+            0%, 100% { 
+                background-position: 0% 50%;
+                box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
+                transform: scale(1);
+            }
+            50% { 
+                background-position: 100% 50%;
+                box-shadow: 0 8px 35px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.5);
+                transform: scale(1.02);
+            }
+        }
+
+        .cashout-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Responsive design for landscape and small screens */
+        @media screen and (orientation: landscape) and (max-height: 500px) {
+            .multiplier-display {
+                font-size: 3.5rem;
+                top: 20%;
+            }
+            
+            .control-panel {
+                padding: 10px 16px;
+                height: 42vh;
+                min-height: 180px;
+            }
+            
+            .header {
+                height: 7vh;
+                padding: 6px 20px;
+            }
+            
+            .quick-bets {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 320px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .balance {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+            
+            .multiplier-display {
+                font-size: 4.5rem;
+            }
+            
+            .control-panel {
+                height: 38vh;
+                min-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="logo">Jeeto92</div>
+        <div class="balance">Balance: Rs.<span id="userBalance">0.00</span></div>
+        <div class="nav-links">
+            <a href="/dashboard.html">Games</a>
+            <a href="/profile.html">Profile</a>
+        </div>
+    </nav>
+    
+    <div class="container aviator-container">
+        <div class="game-box aviator-game">
+                <div class="flight-area">
+            <!-- Layered mountain silhouettes -->
+            <!-- Mountain 1: Furthest, tallest, lightest -->
+            <svg class="mountain-layer" id="mountain1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="#3a4a6b" fill-opacity="1" d="M0,96L60,85.3C120,75,240,53,360,64C480,75,600,117,720,133.3C840,149,960,139,1080,117.3C1200,96,1320,64,1380,48L1440,32L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+            </svg>
+
+            <!-- Mountain 2: Second furthest, medium-tall -->
+            <svg class="mountain-layer" id="mountain2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="#2d3a56" fill-opacity="1" d="M0,128L80,117.3C160,107,320,85,480,96C640,107,800,149,960,165.3C1120,181,1280,171,1360,165.3L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+            </svg>
+
+            <!-- Mountain 3: Third, medium height -->
+            <svg class="mountain-layer" id="mountain3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="#1f2940" fill-opacity="1" d="M0,192L48,181.3C96,171,192,149,288,154.7C384,160,480,192,576,208C672,224,768,224,864,213.3C960,203,1056,181,1152,170.7C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+
+            <!-- Mountain 4: Closest, shortest, darkest -->
+            <svg class="mountain-layer" id="mountain4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="#141b2e" fill-opacity="1" d="M0,256L80,245.3C160,235,320,213,480,218.7C640,224,800,256,960,261.3C1120,267,1280,245,1360,234.7L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+            </svg>
+
+            <div class="runway"></div>
+            <div class="ground-line"></div>
+            
+            <svg class="flight-path-svg" width="100%" height="100%">
+                <defs>
+                    <linearGradient id="trailGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#00bfff;stop-opacity:0.1" />
+                        <stop offset="50%" style="stop-color:#00bfff;stop-opacity:0.8" />
+                        <stop offset="100%" style="stop-color:#0080ff;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <path id="flightArea" fill="url(#trailGradient)" opacity="0.3" d="M 0 0"></path>
+                <path id="flightTrail" class="flight-trail" d="M 0 0"></path>
+            </svg>
+            
+            <div class="exhaust-trail" id="exhaustTrail"></div>
+            
+            <div class="plane" id="plane">
+                <img src="https://i.postimg.cc/cHmtNy5p/plane.png" alt="Aircraft" />
+            </div>
+
+            <!-- Enhanced crash effects -->
+            <div class="crash-explosion" id="crashExplosion"></div>
+            <div class="crash-particles" id="crashParticle1"></div>
+            <div class="crash-particles" id="crashParticle2"></div>
+            <div class="crash-particles" id="crashParticle3"></div>
+            <div class="crash-particles" id="crashParticle4"></div>
+            <div class="crash-particles" id="crashParticle5"></div>
+            <div class="crash-particles" id="crashParticle6"></div>
+            <div class="crash-particles" id="crashParticle7"></div>
+            <div class="crash-particles" id="crashParticle8"></div>
+
+                    <div class="multiplier-display" id="multiplierDisplay">1.00x</div>
+                </div>
+
+                <div class="control-panel">
+            <div class="status-section">
+                <div class="game-status-bottom waiting" id="gameStatusBottom">Ready for Takeoff</div>
+                <div class="status-details" id="statusDetails">Place your bet to begin flight</div>
+            </div>
+
+            <div class="bet-section">
+                <input type="number" class="bet-input" id="betInput" value="100" min="10" placeholder="Enter bet amount">
+                
+                <div class="quick-bets">
+                    <button class="quick-bet" onclick="setBet(50)">Rs.50</button>
+                    <button class="quick-bet" onclick="setBet(100)">Rs.100</button>
+                    <button class="quick-bet" onclick="setBet(200)">Rs.200</button>
+                    <button class="quick-bet" onclick="setBet(500)">Rs.500</button>
+                </div>
+
+                    <button class="action-btn bet-btn" id="actionBtn">Launch Flight</button>
+                    <div id="result" class="result"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-history">
+            <h3>Recent Flights</h3>
+            <div id="aviatorHistory"></div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/games.js"></script>
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeeto92 - Coinflip</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/games.css">
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="logo">Jeeto92</div>
+        <div class="balance">Balance: Rs.<span id="userBalance">0.00</span></div>
+        <div class="nav-links">
+            <a href="/dashboard.html">Games</a>
+            <a href="/profile.html">Profile</a>
+        </div>
+    </nav>
+    
+    <div class="container game-container">
+        <div class="game-box">
+            <div class="coinflip-game">
+                <div id="coin" class="coin">
+                    <div class="heads"></div>
+                    <div class="tails"></div>
+                </div>
+                <div class="bet-options">
+                    <input type="number" id="betAmount" placeholder="Bet Amount">
+                    <select id="betChoice">
+                        <option value="heads">Heads</option>
+                        <option value="tails">Tails</option>
+                    </select>
+                    <button id="flipBtn">Flip Coin</button>
+                </div>
+                <div id="result" class="result"></div>
+            </div>
+        </div>
+        
+        <div class="game-history">
+            <h3>Recent Flips</h3>
+            <div id="flipHistory"></div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/games.js"></script>
+</body>
+</html>
