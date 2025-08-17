@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeeto92 - Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <!-- Admin Navigation -->
+    <nav class="main-nav">
+        <div class="logo">Jeeto92 Admin</div>
+        <div class="nav-links">
+            <span class="welcome-text">Welcome, <strong id="admin-username">Admin</strong></span>
+            <button class="btn logout-btn" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="admin-sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="#dashboard" class="menu-link active" data-section="dashboard">
+                    <span class="menu-icon">📊</span>
+                    <span class="menu-text">Dashboard</span>
+                </a></li>
+                <li><a href="#users" class="menu-link" data-section="users">
+                    <span class="menu-icon">👥</span>
+                    <span class="menu-text">User Management</span>
+                </a></li>
+                <li><a href="#transactions" class="menu-link" data-section="transactions">
+                    <span class="menu-icon">💰</span>
+                    <span class="menu-text">Transactions</span>
+                </a></li>
+                <li><a href="#analytics" class="menu-link" data-section="analytics">
+                    <span class="menu-icon">📈</span>
+                    <span class="menu-text">Analytics</span>
+                </a></li>
+                <li><a href="#payment-settings" class="menu-link" data-section="payment-settings">
+                    <span class="menu-icon">💳</span>
+                    <span class="menu-text">EasyPaisa Settings</span>
+                </a></li>
+                <li><a href="#payment-requests" class="menu-link" data-section="payment-requests">
+                    <span class="menu-icon">📋</span>
+                    <span class="menu-text">Payment Requests</span>
+                </a></li>
+                <li><a href="#settings" class="menu-link" data-section="settings">
+                    <span class="menu-icon">⚙️</span>
+                    <span class="menu-text">Settings</span>
+                </a></li>
+                <li><a href="#audit" class="menu-link" data-section="audit">
+                    <span class="menu-icon">📋</span>
+                    <span class="menu-text">Audit Log</span>
+                </a></li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="admin-content">
+            <!-- Section Header -->
+            <div class="admin-header">
+                <h1 id="section-title">Dashboard</h1>
+                <div class="header-actions">
+                    <button class="btn refresh-btn" onclick="location.reload()">🔄 Refresh</button>
+                </div>
+            </div>
+            
+            <!-- Dashboard Section -->
+            <div id="dashboard-section" class="content-section">
+                <div class="stats-grid" id="stats-grid">
+                    <!-- Dynamic stats will be loaded here -->
+                </div>
+                
+                <div class="admin-section">
+                    <div class="section-header">Recent Activity</div>
+                    <div class="section-content">
+                        <div id="recent-activity">Loading...</div>
+                    </div>
+                </div>
+                
+                <div class="admin-section">
+                    <div class="section-header">Game Performance (Last 7 Days)</div>
+                    <div class="section-content">
+                        <div id="game-stats">Loading...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Users Section -->
+            <div id="users-section" class="content-section hidden">
+                <div class="admin-section">
+                    <div class="section-header">User Management</div>
+                    <div class="section-content">
+                        <div class="search-filters">
+                            <input type="text" id="user-search" placeholder="Search by username or ID">
+                            <select id="user-sort">
+                                <option value="id">Sort by ID</option>
+                                <option value="username">Sort by Username</option>
+                                <option value="balance">Sort by Balance</option>
+                                <option value="created_at">Sort by Join Date</option>
+                            </select>
+                            <select id="user-order">
+                                <option value="DESC">Descending</option>
+                                <option value="ASC">Ascending</option>
+                            </select>
+                            <button class="btn btn-primary" id="search-users">Search</button>
+                            <button class="btn btn-success" id="refresh-users">Refresh</button>
+                        </div>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Balance</th>
+                                    <th>Status</th>
+                                    <th>Join Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table-body">
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                        
+                        <div class="pagination" id="users-pagination">
+                            <!-- Dynamic pagination -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Transactions Section -->
+            <div id="transactions-section" class="content-section hidden">
+                <div class="admin-section">
+                    <div class="section-header">Transaction Management</div>
+                    <div class="section-content">
+                        <div class="search-filters">
+                            <input type="text" id="transaction-user" placeholder="User ID">
+                            <select id="transaction-game">
+                                <option value="all">All Games</option>
+                                <option value="aviator">Aviator</option>
+                                <option value="crash">Crash</option>
+                                <option value="dice">Dice</option>
+                                <option value="coinflip">Coinflip</option>
+                                <option value="color-trading">Color Trading</option>
+                            </select>
+                            <select id="transaction-type">
+                                <option value="all">All Types</option>
+                                <option value="win">Wins</option>
+                                <option value="loss">Losses</option>
+                                <option value="bet">Bets</option>
+                                <option value="deposit">Deposits</option>
+                                <option value="withdrawal">Withdrawals</option>
+                            </select>
+                            <button class="btn btn-primary" id="search-transactions">Search</button>
+                            <button class="btn btn-success" id="refresh-transactions">Refresh</button>
+                        </div>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Game</th>
+                                    <th>Date</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactions-table-body">
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                        
+                        <div class="pagination" id="transactions-pagination">
+                            <!-- Dynamic pagination -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Analytics Section -->
+            <div id="analytics-section" class="content-section hidden">
+                <div class="admin-section">
+                    <div class="section-header">Analytics Dashboard</div>
+                    <div class="section-content">
+                        <div class="search-filters">
+                            <input type="date" id="analytics-start-date">
+                            <input type="date" id="analytics-end-date">
+                            <select id="analytics-game">
+                                <option value="all">All Games</option>
+                                <option value="aviator">Aviator</option>
+                                <option value="crash">Crash</option>
+                                <option value="dice">Dice</option>
+                                <option value="coinflip">Coinflip</option>
+                                <option value="color-trading">Color Trading</option>
+                            </select>
+                            <button class="btn btn-primary" id="generate-analytics">Generate Report</button>
+                        </div>
+                        
+                        <div id="analytics-results">
+                            <p>Select date range and click "Generate Report" to view analytics.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- EasyPaisa Settings Section -->
+            <div id="payment-settings-section" class="content-section hidden">
+                <div class="admin-section">
+                    <div class="section-header">EasyPaisa Account Settings</div>
+                    <div class="section-content">
+                        <form id="easypaisa-settings-form" class="settings-form">
+                            <div class="form-group">
+                                <label for="admin-easypaisa-number">Admin EasyPaisa Account Number:</label>
+                                <input type="text" id="admin-easypaisa-number" pattern="03[0-9]{9}" maxlength="11" required>
+                                <small>Format: 03xxxxxxxxx</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="admin-easypaisa-name">Admin EasyPaisa Account Name:</label>
+                                <input type="text" id="admin-easypaisa-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="min-deposit">Minimum Deposit Amount (Rs.):</label>
+                                <input type="number" id="min-deposit" min="1" step="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="max-deposit">Maximum Deposit Amount (Rs.):</label>
+                                <input type="number" id="max-deposit" min="1" step="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="min-withdrawal">Minimum Withdrawal Amount (Rs.):</label>
+                                <input type="number" id="min-withdrawal" min="1" step="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="max-withdrawal">Maximum Withdrawal Amount (Rs.):</label>
+                                <input type="number" id="max-withdrawal" min="1" step="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="daily-limit">Daily Transaction Limit per User (Rs.):</label>
+                                <input type="number" id="daily-limit" min="1" step="1" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Save Settings</button>
+                                <button type="button" class="btn btn-secondary" id="reset-easypaisa-settings">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Payment Requests Section -->
+            <div id="payment-requests-section" class="content-section hidden">
+                <div class="admin-section">
+                    <div class="section-header">Pending Payment Requests</div>
+                    <div class="section-content">
+                        <div class="search-filters">
+                            <select id="request-type-filter">
+                                <option value="all">All Requests</option>
+                                <option value="deposit">Deposits</option>
+                                <option value="withdrawal">Withdrawals</option>
+                            </select>
+                            <select id="request-status-filter">
+                                <option value="pending">Pending Only</option>
+                                <option value="all">All Statuses</option>
+                                <option value="approved">Approved</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                            <button class="btn btn-primary" id="filter-requests">Filter</button>
+                            <button class="btn btn-success" id="refresh-requests">Refresh</button>
+                        </div>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>User Account</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payment-requests-table-body">
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                        
+                        <div class="pagination" id="payment-requests-pagination">
+                            <!-- Dynamic pagination -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings Section -->
+            <div id="settings-section" class="content-section hidden">
+                <div class="admin-section">
+                    <div class="section-header">System Settings</div>
+                    <div class="section-content">
+                        <div id="settings-content">Loading settings...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Audit Section -->
+            <div id="audit-section" class="content-section hidden">
+                <div class="admin-section">
+                    <div class="section-header">Audit Log</div>
+                    <div class="section-content">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Admin</th>
+                                    <th>Action</th>
+                                    <th>Target User</th>
+                                    <th>Details</th>
+                                    <th>Old Value</th>
+                                    <th>New Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="audit-table-body">
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                        
+                        <div class="pagination" id="audit-pagination">
+                            <!-- Dynamic pagination -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modals -->
+    
+    <!-- User Details Modal -->
+    <div id="user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>User Details</h3>
+                <span class="close" id="close-user-modal">&times;</span>
+            </div>
+            <div id="user-modal-content">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Balance Adjustment Modal -->
+    <div id="balance-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Adjust User Balance</h3>
+                <span class="close" id="close-balance-modal">&times;</span>
+            </div>
+            <form id="balance-form">
+                <div class="form-group">
+                    <label>User ID:</label>
+                    <input type="text" id="balance-user-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Action:</label>
+                    <select id="balance-type" required>
+                        <option value="">Select Action</option>
+                        <option value="add">Add to Balance</option>
+                        <option value="subtract">Subtract from Balance</option>
+                        <option value="set">Set Balance To</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Amount:</label>
+                    <input type="number" id="balance-amount" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Reason:</label>
+                    <textarea id="balance-reason" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Apply Changes</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-balance">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Status Change Modal -->
+    <div id="status-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change User Status</h3>
+                <span class="close" id="close-status-modal">&times;</span>
+            </div>
+            <form id="status-form">
+                <div class="form-group">
+                    <label>User ID:</label>
+                    <input type="text" id="status-user-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>New Status:</label>
+                    <select id="user-status" required>
+                        <option value="">Select Status</option>
+                        <option value="active">Active</option>
+                        <option value="suspended">Suspended</option>
+                        <option value="banned">Banned</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Reason:</label>
+                    <textarea id="status-reason" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Change Status</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-status">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Payment Request Review Modal -->
+    <div id="payment-request-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Review Payment Request</h3>
+                <span class="close" id="close-payment-request-modal">&times;</span>
+            </div>
+            <div id="payment-request-details">
+                <!-- Dynamic content -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" id="approve-request">Approve</button>
+                <button class="btn btn-danger" id="reject-request">Reject</button>
+                <button class="btn btn-secondary" id="cancel-request-review">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Reject Reason Modal -->
+    <div id="reject-reason-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Rejection Reason</h3>
+                <span class="close" id="close-reject-reason-modal">&times;</span>
+            </div>
+            <form id="reject-reason-form">
+                <div class="form-group">
+                    <label>Request ID:</label>
+                    <input type="text" id="reject-request-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Reason for Rejection:</label>
+                    <textarea id="reject-reason" required placeholder="Please provide a detailed reason for rejection..."></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger">Confirm Rejection</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-rejection">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="/js/admin-dashboard.js"></script>
+</body>
+</html>
